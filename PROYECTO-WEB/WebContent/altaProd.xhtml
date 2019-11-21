@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<f:event listener="#{inicioBeanWeb.verificarSesion()}" type="preRenderView" />
+	<title>Alta de Producto</title>
+	<style>
+.bg-img {
+	background-image: url("img/logo.png");
+	min-height: 610px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+}
+</style>
+</h:head>
+<body>
+
+
+	<div class="bg-img">
+		<h2>Alta de Producto</h2>
+
+		<h:form id="altaForm">
+			<p:growl id="growl" showDetail="true" sticky="true"
+				showSummary="false" />
+			<p:panelGrid columns="3" styleClass="ui-noborder">
+			
+			Nombre:
+			<p:inputText id="nombre"
+					value="#{productoBeanWEB.producto.prodNombre}" required="true"
+					requiredMessage="Campo requerido"
+					validatorMessage="El dato ingresado supera el largo permitido. Por favor, revise">
+					<f:validateLength maximum="50" />
+				</p:inputText>
+
+				<p:message for="nombre" style="color:red" />
+			
+		  	Tipo de estiba:
+			<p:selectOneMenu id="estiba" value="#{productoBeanWEB.estiba}">
+					<f:selectItems value="#{productoBeanWEB.tipoEstiba}"
+						var="tipoEstiba" itemValue="#{tipoEstiba}"
+						itemLabel="#{tipoEstiba.label}" />
+				</p:selectOneMenu>
+
+				<p:message for="estiba" style="color:red" />
+			
+			Segmentación:
+			<p:selectOneMenu id="seg" value="#{productoBeanWEB.seg}">
+					<f:selectItems value="#{productoBeanWEB.segmentacion}" var="seg"
+						itemValue="#{seg}" itemLabel="#{seg.label}" />
+				</p:selectOneMenu>
+
+				<p:message for="seg" style="color:red" />
+			
+			Lote:
+			<p:inputText id="lote" value="#{productoBeanWEB.producto.prodLote}"
+					required="true" requiredMessage="Campo requerido."
+					validatorMessage="El dato ingresado supera el largo permitido. Por favor, revise">
+					<f:validateLength maximum="20" />
+				</p:inputText>
+
+				<p:message for="lote" style="color:red" />
+			
+			Precio:
+			<p:inputText id="precio"
+					value="#{productoBeanWEB.producto.prodPrecio}" required="true"
+					requiredMessage="Campo requerido.">
+				</p:inputText>
+
+				<p:message for="precio" style="color:red" />
+			
+			Peso:
+			<p:inputText id="peso" value="#{productoBeanWEB.producto.prodPeso}"
+					required="true" requiredMessage="Campo requerido.">
+				</p:inputText>
+
+				<p:message for="peso" style="color:red" />
+			
+			Volumen:
+			<p:inputText id="volumen" value="#{productoBeanWEB.producto.prodVol}"
+					required="true" requiredMessage="Campo requerido.">
+				</p:inputText>
+
+				<p:message for="volumen" style="color:red" />
+			
+			Stock Mínimo:
+			<p:inputText id="stkMin"
+					value="#{productoBeanWEB.producto.prodStkmin}" required="true"
+					requiredMessage="Campo requerido.">
+				</p:inputText>
+
+				<p:message for="stkMin" style="color:red" />
+			
+			Stock Total:
+			<p:inputText id="stkTotal"
+					value="#{productoBeanWEB.producto.prodStktotal}">
+				</p:inputText>
+
+				<p:message for="stkTotal" style="color:red" />
+			 
+			Fecha de Elaboración:
+			<p:calendar id="fecEl" value="#{productoBeanWEB.producto.prodFelab}"
+					mode="popup" showOn="button" pattern="dd/MM/yyyy"
+					dateFormat="dd/MM/yyyy" required="true"
+					requiredMessage="Debe ingresar una fecha de elaboración" />
+
+				<p:message for="fecEl" style="color:red" />
+			
+			Fecha de Vencimiento:
+			<p:calendar id="fecVe" value="#{productoBeanWEB.producto.prodFven}"
+					mode="popup" showOn="button" pattern="dd/MM/yyyy"
+					dateFormat="dd/MM/yyyy" required="true"
+					requiredMessage="Debe ingresar una fecha de vencimiento" />
+
+				<p:message for="fecVe" style="color:red" />
+			
+			Nombre de Familia:
+
+			<p:selectOneMenu id="codFam" value="#{productoBeanWEB.nombreFam}"
+					effect="fade" filter="true" filterMatchMode="startsWith"
+					required="true" requiredMessage="Debe seleccionar una familia">
+					<f:selectItem itemLabel="Seleccione una familia" itemValue="" />
+					<f:selectItems value="#{productoBeanWEB.listFamilias}" var="fami"
+						itemLabel="#{fami.famiNombre.concat(' - Cod: ').concat(fami.famiCodi)}"
+						itemValue="#{fami.famiNombre}" />
+				</p:selectOneMenu>
+				<p:message for="codFam" style="color:red" />
+			
+			Ingresado por:
+			<p:inputText id="codUsu"
+					value="#{productoBeanWEB.currentUser.usuNomacceso}" disabled="true">
+				</p:inputText>
+
+				<p:message for="codUsu" style="color:red" />
+
+				<p:commandButton action="#{productoBeanWEB.altaProducto()}"
+					value="Crear" update="altaForm" />
+			</p:panelGrid>
+		</h:form>
+	</div>
+</body>
+</html>

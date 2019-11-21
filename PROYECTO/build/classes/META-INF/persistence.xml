@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="PROYECTO">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>java:/OracleDS</jta-data-source>
+		<class>com.entities.Almacenamiento</class>
+		<class>com.entities.Ciudade</class>
+		<class>com.entities.Familia</class>
+		<class>com.entities.Locale</class>
+		<class>com.entities.Movimiento</class>
+		<class>com.entities.Pedido</class>
+		<class>com.entities.Perfile</class>
+		<class>com.entities.Producto</class>
+		<class>com.entities.Renglonespedido</class>
+		<class>com.entities.TipoLocale</class>
+		<class>com.entities.Usuario</class>
+
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>
+			<property name="hibernate.hbm2ddl.auto" value="validate"/>
+			<property name="hibernate.show_sql" value="true"/>
+			<property name="hibernate.default_schema" value="PFT_DATABASE"/>
+			<property name="hibernate.connection.password" value="PFT_DATABASE"/>
+			<property name="hibernate.connection.username" value="PFT_DATABASE"/>
+		</properties>
+		
+	</persistence-unit>
+</persistence>

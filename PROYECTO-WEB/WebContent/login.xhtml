@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<style type="text/css">
+body, html {
+	height: 100%;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+.bg-img {
+	background-image: url("img/logo.png");
+	min-height: 610px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+}
+
+.container {
+	position: absolute;
+	right: 0;
+	margin: 20px;
+	max-width: 300px;
+	padding: 16px;
+	background-color: white;
+	border: 3px solid green;
+}
+
+.conteiner2 {
+	position: absolute;
+	bottom: 280px;
+	right: 40px;
+}
+
+input[type=text] {
+	text-transform: uppercase;
+}
+
+input[type=text], input[type=password] {
+	width: 100%;
+	padding: 15px;
+	margin: 5px 0 22px 0;
+	border: none;
+	background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+	background-color: #ddd;
+	outline: none;
+}
+
+.btn {
+	background-color: #4CAF50;
+	color: white;
+	padding: 10px 20px;
+	border: none;
+	cursor: pointer;
+	width: 100%;
+	opacity: 0.9;
+}
+
+.btn:hover {
+	opacity: 1;
+}
+</style>
+</h:head>
+<h:body>
+	<h:form>
+		<p:messages autoUpdate="true" showDetail="true">
+			<p:autoUpdate />
+		</p:messages>
+	</h:form>
+
+	<div class="bg-img">
+	<h:panelGrid id="grid">
+		<h:form class="container" >
+			
+				<p:outputLabel value="Usuario" />
+				<p:inputText id="usuNombre"
+					value="#{logueoBeanWEB.user.usuNomacceso}" required="true"
+					requiredMessage="El campo usuario es obligatorio" />
+
+				<p:outputLabel value="Contraseña" />
+				<p:password id="usuContra"
+					value="#{logueoBeanWEB.user.usuContrasenia}" required="true"
+					requiredMessage="El campo contraseña es obligatorio" />
+
+			
+			<h:column />
+
+			<p:commandButton class="btn" icon="ui-icon-key" id="butonLogin"
+				action="#{logueoBeanWEB.Login()}" value="Ingresar" update="grid" />
+			<p:message for="butonLogin" />
+
+		</h:form>
+		<h:form class="conteiner2">
+			Pulsa <p:commandLink id="linkContrasena" action="#{logueoBeanWEB.recuperarContrasena()}" update="grid">
+				<h:outputText value="aquí"  />
+			</p:commandLink> si has olvidado tu contraseña
+			<p:message for="linkContrasena" />
+		</h:form>
+		
+		</h:panelGrid>
+	</div>
+</h:body>
+</html>

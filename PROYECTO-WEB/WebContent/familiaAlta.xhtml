@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+<f:event listener="#{inicioBeanWeb.verificarSesion()}" type="preRenderView" />
+	<title>Crear Familia</title>
+	<style>
+.bg-img {
+	background-image: url("img/logo.png");
+	min-height: 610px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+}
+</style>
+
+</h:head>
+
+<body>
+	<div class="bg-img">
+		<h2>Crear Familia</h2>
+		<h:form id="crearForm">
+			<p:growl id="growl" showDetail="true" sticky="true"
+				showSummary="false" />
+			<p:panelGrid columns="2" styleClass="ui-noborder" cellpadding="5">
+			Nombre:
+			<p:inputText id="nomFamilia" value="#{familiaBeanWEB.famiNombre}"
+					required="true" requiredMessage="Ingrese el Nombre">
+
+				</p:inputText>
+				<br />
+			
+			Descripción:
+			<p:inputText id="descFamilia" value="#{familiaBeanWEB.famiDescrip}"
+					required="true" requiredMessage="Ingrese la descripcion"
+					validatorMessage="El dato ingresado en el campo Descrpición supera el largo permitido. Por favor, revise">
+					<f:validateLength maximum="20" />
+				</p:inputText>
+				<br />
+			
+			Incompatibilidad:
+			
+         <p:selectCheckboxMenu id="multiple"
+					value="#{familiaBeanWEB.incompatibilidad}" label="Incompatibilidad"
+					multiple="true" filter="true" filterMatchMode="startsWith"
+					panelStyle="width:250px" required="true"
+					requiredMessage="Ingrese la Incompatibilidad">
+					<f:selectItems value="#{familiaBeanWEB.selectedValues}" var="fami"
+						itemLabel="#{fami.famiNombre.concat(' - Cod: ').concat(fami.famiCodi)}"
+						itemValue="#{fami.famiCodi}" />
+					<f:validator validatorId="limitCheckboxMenuValidator" />
+					<f:attribute name="maxLimit" value="5" />
+				</p:selectCheckboxMenu>
+				<br />
+				<br />
+				<br />
+				<br />
+				<p:commandButton action="#{familiaBeanWEB.crearFamilia()}"
+					value="Crear" update="@form">
+				</p:commandButton>
+			</p:panelGrid>
+		</h:form>
+	</div>
+</body>
+</html>

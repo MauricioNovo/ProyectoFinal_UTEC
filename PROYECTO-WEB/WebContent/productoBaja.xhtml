@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+<f:event listener="#{inicioBeanWeb.verificarSesion()}" type="preRenderView" />
+	<title>Baja de Producto</title>
+	<style>
+.bg-img {
+	background-image: url("img/logo.png");
+	min-height: 610px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+}
+</style>
+</h:head>
+<body>
+
+
+	<div class="bg-img">
+		<h2>Baja de Producto</h2>
+		<h:form id="busForm">
+			<p:panelGrid columns="5" styleClass="ui-noborder"> 
+			Filtrar por:
+			 <p:selectOneMenu value="#{productoBeanWEB.filtar}">
+					<f:selectItem itemValue="ID" itemLabel="ID" />
+					<f:selectItem itemValue="Nombre" itemLabel="Nombre" />
+				</p:selectOneMenu>
+				<p:inputText id="buscar" value="#{productoBeanWEB.buscar}"
+					required="true" requiredMessage="Campo requerido." />
+				<p:commandButton action="#{productoBeanWEB.obtenerProducto}"
+					value="Buscar" update="busForm bajaForm" />
+				<p:messages id="mensaje" for="buscar" style="color:red" />
+
+			</p:panelGrid>
+		</h:form>
+		<br /> <br />
+		<h:form id="bajaForm">
+			<p:growl id="growl" showDetail="true" sticky="true"
+				showSummary="false" />
+			<p:panelGrid columns="2" styleClass="ui-noborder">
+			ID:
+			<p:inputText id="codProd" value="#{productoBeanWEB.producto.prodId}"
+					disabled="true">
+					<!--  <f:validator/>-->
+				</p:inputText>
+			
+			Nombre:
+			<p:inputText id="nombre"
+					value="#{productoBeanWEB.producto.prodNombre}" disabled="true">
+					<!--  <f:validator/>-->
+				</p:inputText>
+	
+		  	Tipo de estiba:
+			<p:selectOneMenu id="estiba" value="#{productoBeanWEB.estiba}"
+					disabled="true">
+					<f:selectItems value="#{productoBeanWEB.tipoEstiba}"
+						var="tipoEstiba" itemValue="#{tipoEstiba}"
+						itemLabel="#{tipoEstiba.label}" />
+				</p:selectOneMenu>
+
+			Segmentación:
+			<p:selectOneMenu id="seg" value="#{productoBeanWEB.seg}"
+					disabled="true">
+					<f:selectItems value="#{productoBeanWEB.segmentacion}" var="seg"
+						itemValue="#{seg}" itemLabel="#{seg.label}" />
+				</p:selectOneMenu>
+
+			Lote:
+			<p:inputText id="lote" value="#{productoBeanWEB.producto.prodLote}"
+					disabled="true">
+					<f:validateLength maximum="20" />
+					<!--	  <f:validator/>-->
+				</p:inputText>
+
+			Precio:
+			<p:inputText id="precio"
+					value="#{productoBeanWEB.producto.prodPrecio}" disabled="true">
+					<!-- 	  <f:validator/> -->
+				</p:inputText>
+
+			Peso:
+			<p:inputText id="peso" value="#{productoBeanWEB.producto.prodPeso}"
+					disabled="true">
+					<!-- 	 <f:validator/> -->
+				</p:inputText>
+
+			Volumen:
+			<p:inputText id="volumen" value="#{productoBeanWEB.producto.prodVol}"
+					disabled="true">
+					<!--	  <f:validator/> -->
+				</p:inputText>
+	
+			Stock Mínimo:
+			<p:inputText id="stkMin"
+					value="#{productoBeanWEB.producto.prodStkmin}" disabled="true">
+					<!--	  <f:validator/> -->
+				</p:inputText>
+	
+			Stock Total:
+			<p:inputText id="stkTotal"
+					value="#{productoBeanWEB.producto.prodStktotal}" disabled="true">
+					<!--	 <f:validator/> -->
+				</p:inputText>
+ 
+			Fecha de Elaboración:
+			<p:calendar id="fecEl" value="#{productoBeanWEB.producto.prodFelab}"
+					mode="popup" showOn="button" pattern="dd/MM/yyyy"
+					dateFormat="dd/MM/yyyy" disabled="true" />
+
+			Fecha de Vencimiento:
+			<p:calendar id="fecVe" value="#{productoBeanWEB.producto.prodFven}"
+					mode="popup" showOn="button" pattern="dd/MM/yyyy"
+					dateFormat="dd/MM/yyyy" disabled="true" />
+	
+			Nombre de Familia:
+			<p:inputText id="codFam" value="#{productoBeanWEB.nombreFam}"
+					disabled="true">
+					<!--	 <f:validator/> -->
+				</p:inputText>
+	
+			Ingresado por:
+			<p:inputText id="codUsu" value="#{productoBeanWEB.usuAcceso}"
+					disabled="true">
+					<!--	 <f:validator/> -->
+				</p:inputText>
+
+				<p:commandButton action="#{productoBeanWEB.bajaProducto()}"
+					value="Baja" update="bajaForm"
+					disabled="#{!productoBeanWEB.habMod}">
+
+					<p:confirm header="Confirmacion"
+						message="Esta seguro que desea dar de baja"
+						icon="pi pi-exclamation-triangle" />
+				</p:commandButton>
+
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					<p:commandButton value="Si" type="button"
+						styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+					<p:commandButton value="No" type="button"
+						styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+				</p:confirmDialog>
+
+			</p:panelGrid>
+		</h:form>
+	</div>
+</body>
+</html>

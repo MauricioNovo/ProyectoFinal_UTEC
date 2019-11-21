@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+<f:event listener="#{inicioBeanWeb.verificarSesion()}" type="preRenderView" />
+	<title>Modificar Familia</title>
+	<style>
+.bg-img {
+	background-image: url("img/logo.png");
+	min-height: 610px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+}
+</style>
+
+</h:head>
+
+<body>
+	<div class="bg-img">
+		<h2>Modificar Familia</h2>
+		<h:form>
+			<p:panelGrid columns="5" styleClass="ui-noborder"> 
+			Filtrar por:
+			 <p:selectOneMenu value="#{familiaBeanWEB.filtrar}">
+					<f:selectItem itemValue="ID" itemLabel="ID" />
+					<f:selectItem itemValue="Descripcion" itemLabel="Descripcion" />
+				</p:selectOneMenu>
+				<p:inputText value="#{familiaBeanWEB.buscar}" required="true"
+					requiredMessage="Campo identificador vacio" />
+
+				<p:commandButton action="#{familiaBeanWEB.obtenerfamilia()}"
+					value="Buscar" update="modForm" />
+			</p:panelGrid>
+		</h:form>
+		<br /> <br /> <br /> <br />
+		<h:form id="modForm">
+			<p:growl id="growl" showDetail="true" sticky="true"
+				showSummary="false" />
+			<p:panelGrid columns="2" styleClass="ui-noborder">
+			Código:
+			<p:inputText id="idFamilia" value="#{familiaBeanWEB.famiCodi}"
+					disabled="true">
+					<!--  <f:validator/>-->
+				</p:inputText>
+				<br />
+			
+			Nombre:
+			<p:inputText id="nomFamilia" value="#{familiaBeanWEB.famiNombre}"
+					disabled="true">
+					<!--  <f:validator/>-->
+				</p:inputText>
+				<br />
+			
+			Descripción:
+			<p:inputText id="descFamilia" value="#{familiaBeanWEB.famiDescrip}"
+					disabled="#{familiaBeanWEB.edition}" required="true"
+					requiredMessage="Ingrese la descripcion"
+					validatorMessage="El dato ingresado en el campo Descrpipción supera el largo permitido. Por favor, revise">
+					<f:validateLength maximum="20" />
+				</p:inputText>
+				<br />
+			
+			Incompatibilidad:
+			<p:inputText id="incompFamilia"
+					value="#{familiaBeanWEB.famiIncompat}" disabled="true">
+				</p:inputText>
+				<br />
+				<br />
+				<br />
+				<br />
+				<p:commandButton action="#{familiaBeanWEB.modificarFamilia()}"
+					value="Modificar" update="@form">
+					<p:confirm header="Confirmacion"
+						message="Esta seguro que desea modificar?"
+						icon="pi pi-exclamation-triangle" />
+				</p:commandButton>
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+					rendered="#{familiaBeanWEB.edition == 'false'}">
+					<p:commandButton value="Si" type="button"
+						styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+					<p:commandButton value="No" type="button"
+						styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+				</p:confirmDialog>
+			</p:panelGrid>
+		</h:form>
+	</div>
+</body>
+</html>

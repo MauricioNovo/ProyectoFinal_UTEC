@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<style>
+.bg-img {
+	background-image: url("img/logo.png");
+	min-height: 610px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+}
+</style>
+
+</h:head>
+<body>
+
+	<div class="bg-img">
+
+
+		<h:form>
+		<p:growl id="growl" showDetail="true" sticky="true" />
+				<p:panelMenu style="width:300px">
+				<p:submenu label="Productos">
+					<p:menuitem value="Crear" action="#{inicioBeanWeb.aProd()}"
+					update="@form"/>
+					<p:menuitem value="Modificar" action="#{inicioBeanWeb.mProd()}" update="@form"/>
+					<p:menuitem value="Eliminar" action="#{inicioBeanWeb.bProd()}" update="@form"/>
+				</p:submenu>
+				<p:submenu label="Familias">
+					<p:menuitem value="Crear" action="#{inicioBeanWeb.aFam()}" update="@form"/>
+					<p:menuitem value="Modificar" action="#{inicioBeanWeb.mFam()}" update="@form"/>
+					<p:menuitem value="Eliminar" action="#{inicioBeanWeb.bFam()}" update="@form"/>
+				</p:submenu>
+				<p:submenu label="Reporte">
+					<p:menuitem value="Familia por Código" url="reporteEmision.xhtml" />
+				</p:submenu>
+				<p:submenu label="Usuario">
+					<p:menuitem value="Cerrar Sesión"
+						action="#{logueoBeanWEB.Logout()}" />
+				</p:submenu>
+			</p:panelMenu>
+		</h:form>
+	</div>
+</body>
+</html>

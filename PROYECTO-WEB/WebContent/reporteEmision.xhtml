@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Reporte para imprimir un rango de códigos de Familias</title>
+	<style>
+.bg-img {
+	background-image: url("img/logo.png");
+	min-height: 610px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+}
+</style>
+
+</h:head>
+
+<body>
+	<div class="bg-img">
+		<h3>Reporte para imprimir un rango de códigos de Familias</h3>
+		<br /> <br />
+		<h:form id="crearForm">
+			<p:growl id="growl" showDetail="true" sticky="true"
+				showSummary="false" />
+			<p:panelGrid columns="2" styleClass="ui-noborder" cellpadding="5">
+			Código desde:
+			<p:inputText id="CodDesde" value="#{familiaBeanWEB.famiCodi}"
+					required="true"
+					requiredMessage="Ingrese el código desde el que desea emitir el reporte">
+
+				</p:inputText>
+				<br />
+			
+			Código hasta:
+			<p:inputText id="CodHasta" value="#{familiaBeanWEB.famiCodi}"
+					required="true"
+					requiredMessage="Ingrese el código hasta el que desea emitir el reporte">
+				</p:inputText>
+				<br />
+				<br />
+				<p:commandButton action="#{familiaBeanWEB.crearFamilia()}"
+					value="Generar Reporte" update="@form">
+				</p:commandButton>
+			</p:panelGrid>
+		</h:form>
+		<br />
+
+		<style type="text/css">
+.ui-paginator a {
+	margin-right: 5px;
+}
+</style>
+
+
+		<h:form>
+			<p:dataTable id="tbl" var="car" value="#{dataExporterView.cars}"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+				paginator="true" rows="10" style="margin-bottom:20px">
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Código" />
+					</f:facet>
+					<h:outputText value="#{familiaBeanWEB.famiCodi}" />
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Nombre" />
+					</f:facet>
+					<h:outputText value="#{familiaBeanWEB.famiNombre}" />
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Descripción" />
+					</f:facet>
+					<h:outputText value="#{familiaBeanWEB.famiDescrip}" />
+				</p:column>
+			</p:dataTable>
+
+			<h3>Exportar</h3>
+			<h:commandLink>
+				<p:graphicImage name="WebContent/logo.png" />
+				<p:dataExporter type="xls" target="tbl"
+					fileName="Reporte_rango_códigos_Familias" pageOnly="true" />
+			</h:commandLink>
+
+			<h:commandLink>
+				<p:graphicImage name="img/logo.png" />
+				<p:dataExporter type="pdf" target="tbl"
+					fileName="Reporte_rango_códigos_Familias" pageOnly="true" />
+			</h:commandLink>
+
+		</h:form>
+	</div>
+</body>
+</html>
